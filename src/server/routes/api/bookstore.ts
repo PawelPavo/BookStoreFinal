@@ -2,7 +2,6 @@ import * as passport from 'passport'
 import db from '../../db'
 import { Router } from 'express'
 import { bookBody } from '../../middlware/books'
-import type { ReqUser } from '../../utils/interfaces';
 
 
 const router = Router()
@@ -18,7 +17,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.get('/', passport.authenticate('jwt'), async (req:ReqUser, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const books = await db.bookstore.all()
         res.json(books)
@@ -28,7 +27,7 @@ router.get('/', passport.authenticate('jwt'), async (req:ReqUser, res, next) => 
     }
 })
 
-router.post('/', bookBody, async (req, res, next) => {
+router.post('/',passport.authenticate('jwt'), bookBody, async (req, res, next) => {
     const book = req.body
     try {
         const { insertId } = await db.bookstore.insert(book.title, book.author, book.price, book.newCategory)
@@ -39,7 +38,7 @@ router.post('/', bookBody, async (req, res, next) => {
     }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id',passport.authenticate('jwt'), async (req, res, next) => {
     const id = (req.params.id)
     const title = req.body.title
     const author = req.body.author
@@ -55,7 +54,7 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id',passport.authenticate('jwt'), async (req, res, next) => {
     const id = (req.params.id)
     try {
         const results = await db.bookstore.destroy(id)

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute'
 import Home from './pages/Home';
 import Books from './pages/Books';
 import AddBook from './pages/AddBook';
@@ -28,12 +29,12 @@ const App: React.FC<IAppProps> = () => {
 				<Route exact path="/books">
 					<Books />
 				</Route>
-				<Route exact path="/books/new">
+				<PrivateRoute exact path="/books/new">
 					<AddBook />
-				</Route>
-				<Route exact path="/:id/update">
+				</PrivateRoute>
+				<PrivateRoute exact path="/:id/update">
 					<EditBook />
-				</Route>
+				</PrivateRoute>
 				<Route exact path="/:id/details">
 					<BookDetails />
 				</Route>
