@@ -2,6 +2,8 @@ import * as passport from 'passport'
 import db from '../../db'
 import { Router } from 'express'
 import { bookBody } from '../../middlware/books'
+import type { ReqUser } from '../../utils/interfaces';
+
 
 const router = Router()
 
@@ -16,7 +18,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.get('/', passport.authenticate('jwt'), async (req, res, next) => {
+router.get('/', passport.authenticate('jwt'), async (req:ReqUser, res, next) => {
     try {
         const books = await db.bookstore.all()
         res.json(books)
