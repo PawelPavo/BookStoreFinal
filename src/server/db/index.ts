@@ -19,10 +19,15 @@ export const Query = <T=any>(query?: string, values?:any) => {
 }
 
 import bookstore from './queries/bookstore';
-import categories from './queries/categories'
+import categories from './queries/categories';
+import tokens from './queries/tokens';
+import users from './queries/users'
+
 
 
 export default {
     bookstore,
-    categories
+    categories,
+    tokens,
+    users
 }
