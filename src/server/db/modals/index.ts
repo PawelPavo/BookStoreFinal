@@ -6,3 +6,8 @@ export interface BooksT {
     id?: number;
     category_id?:number;
 }
+
+export interface CategoriesT{
+    id?: number;
+    name?: string;
+}
